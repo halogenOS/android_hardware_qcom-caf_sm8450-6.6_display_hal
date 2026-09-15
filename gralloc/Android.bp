@@ -96,6 +96,11 @@ cc_library_shared {
 //libgralloccore
 cc_library_shared {
     name: "libgralloccore",
+    // DmaManager::SecureMemPerms() calls into VmMem, whose implementation ships
+    // as a vendor blob; the libvmmem in this tree is an empty placeholder that
+    // only exists to be linked against. The blob is what lands in
+    // /vendor/lib64, so let these resolve when the library is loaded.
+    allow_undefined_symbols: true,
     defaults: [
         "qtidisplay_common_defaults",
         "qtidisplay_smmu_header_defaults"

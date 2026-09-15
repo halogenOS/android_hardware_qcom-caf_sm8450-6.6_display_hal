@@ -7,4 +7,10 @@ cc_library_headers {
 cc_library_shared {
     name: "libvmmem",
     vendor: true,
+    // Carries no sources: it exists so that gralloc and snapalloc have
+    // something to link, while the implementation comes from the vendor blob
+    // of the same name. Installing it would put an empty library next to that
+    // blob, which Android 16's filesystem generator rejects as a packaging
+    // conflict.
+    installable: false,
 }
